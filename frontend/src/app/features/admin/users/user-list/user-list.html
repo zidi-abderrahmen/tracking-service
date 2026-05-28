@@ -1,0 +1,68 @@
+<div class="user-list-container">
+
+    <h1>USER LIST</h1>
+
+    <div class="main-content">
+
+        <div class="search-container">
+
+            <div class="input-container">
+
+                <label for="search">Search</label>
+                <input type="text" name="search" (input)="checkEmptySearchField(searchTerm.trim())" [(ngModel)]="searchTerm" (keyup.enter)="onSearch()" placeholder="Search bar...">
+
+            </div>
+
+            <button type="submit" class="search-button" (click)="onSearch()">
+                Search
+            </button>
+
+            <button routerLink="/admin/users/add" type="submit" class="add-button">
+                Add User
+            </button>
+
+        </div>
+
+        <table>
+
+            <thead>
+                <tr> 
+                    <th>FIRST NAME</th> 
+                    <th>LAST NAME</th>
+                    <th>ACTIONS</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @for (u of users; track u.idUser) {
+                    <tr>
+                        <td>{{ u.firstName }}</td>
+                        <td>{{ u.lastName }}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="action-btn view" title="View" [routerLink]="['/admin/users/details', u.idUser]">
+                                    <span class="material-icons">visibility</span>
+                                </button>
+                                
+                                <button class="action-btn edit" title="Edit" [routerLink]="['/admin/users/edit', u.idUser]">
+                                    <span class="material-icons">edit</span>
+                                </button>
+                                
+                                <button class="action-btn delete" title="Delete" (click)="onDelete(u.idUser, u.firstName, u.lastName)">
+                                    <span class="material-icons">delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                } @empty {
+                    <tr>
+                        <td colspan="3" style="text-align: center;" class="empty-message">No users found.</td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

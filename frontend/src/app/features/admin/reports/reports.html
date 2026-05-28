@@ -1,0 +1,83 @@
+<div class="report-container">
+
+    <h1 data-cy="welcome-message">REPORT</h1>
+
+    <div class="main-content">
+
+        <form #userForm="ngForm" (ngSubmit)="onSearch()">
+
+            <div class="form-container">
+
+                <div class="input-container">
+                    <label for="client">Client</label>
+                    <input type="text" list="clientList" name="client" [(ngModel)]="clientName" (change)="onClientChange($event)" placeholder="Search client" required>
+                    <datalist id="clientList">
+                        @for (c of clients; track c.idClient) {
+                            <option [value]="c.companyName">{{ c.firstName }} {{ c.lastName }}</option>
+                        }
+                    </datalist>
+                </div>
+
+            <div class="input-container">
+                <label for="service">Service (optional)</label>
+                <input type="text" list="serviceList" name="service" [(ngModel)]="serviceTitle" (change)="onServiceChange($event)" placeholder="Search service" [disabled]="clientId == ''">
+                <datalist id="serviceList">
+                    @for (s of services; track s.idService) {
+                        <option [value]="s.title"></option>
+                    }
+                </datalist>
+            </div>
+
+            <div class="input-container">
+
+                <label for="start-date">Start date</label>
+                <input type="date" placeholder="01/01/2026" name="startDate" [(ngModel)]="startDate" (change)="onStartDateChange($event.target)" required>
+
+            </div>
+
+            <div class="input-container">
+
+                <label for="end-date">End date</label>
+                <input type="date" placeholder="31/01/2026" name="endDate" [(ngModel)]="endDate" (change)="onEndDateChange($event.target)" required>
+
+            </div>
+
+            </div>
+
+            <button type="submit" class="submit-button" [disabled]="!userForm.form.valid">
+                Submit
+            </button>
+
+        </form>
+
+        <table>
+
+            <thead>
+                <tr> 
+                    <th>SERVICE</th> 
+                    <th>CLIENT</th>
+                    <th>DATE</th>
+                    <th>HOURS</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @for (t of timesheets; track t.idTimesheet) {
+                    <tr>
+                        <td>{{ t.service.title }}</td>
+                        <td>{{ t.service.client.companyName }}</td>
+                        <td>{{ t.date }}</td>
+                        <td>{{ t.hours }}</td>
+                    </tr>
+                } @empty {
+                    <tr>
+                        <td colspan="4" style="text-align: center;" class="empty-message">No report found.</td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

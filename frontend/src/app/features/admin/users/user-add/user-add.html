@@ -1,0 +1,64 @@
+<div class="add-user-container">
+    @if (isViewMode) {
+        <h1>VIEW USER</h1>
+    } @else if (isEditMode) {
+        <h1>EDIT USER</h1>
+    } @else {
+        <h1>ADD USER</h1>
+    }
+
+    <div class="main-content">
+        <form #userForm="ngForm" (ngSubmit)="onSave()">
+
+            <div class="form-container">
+
+                <div class="input-container">
+                    <label for="first-name">First name</label>
+                    <input type="text" name="firstName" [(ngModel)]="user.firstName" placeholder="First name" [disabled]="isViewMode" required>
+                </div>
+
+                <div class="input-container">
+                    <label for="last-name">Last name</label>
+                    <input type="text" name="lastName" [(ngModel)]="user.lastName" placeholder="Last name" [disabled]="isViewMode" required>
+                </div>
+
+                <div class="input-container">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" [(ngModel)]="user.email" placeholder="Email" [disabled]="isViewMode" required>
+                </div>
+
+                <div class="input-container">
+                    <label for="role">Role</label>
+                    <select name="role" id="role" [(ngModel)]="user.role" [disabled]="isViewMode">
+                        <option value="ADMIN">Admin</option>
+                        <option value="ENGINEER">Engineer</option>
+                    </select>
+                </div>
+
+                <div class="input-container">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" [(ngModel)]="user.password" placeholder="Password" [disabled]="isViewMode" required>
+                </div>
+
+                <div class="input-container">
+                    <label for="confirm-password">Confirm password</label>
+                    <input type="password" name="confirmPassword" [(ngModel)]="confirmPassword" placeholder="Confirm password" [disabled]="isViewMode" required>
+                </div>
+
+            </div>
+
+            @if (isEditMode) {
+                <button type="submit" class="add-button" [disabled]="!userForm.form.valid">Save Changes</button>
+            } @else if (!isViewMode) {
+                <button type="submit" class="add-button" [disabled]="!userForm.form.valid">Add</button>
+            } @else {
+                <button 
+                    type="button" 
+                    class="add-button" (click)="goBack()">
+                    Back to List
+                </button>
+            }
+
+        </form>
+    </div>
+</div>

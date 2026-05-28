@@ -1,0 +1,62 @@
+<div class="user-list-container">
+
+    <h1>ASSIGNMENT LIST</h1>
+
+    <div class="main-content">
+
+        <div class="search-container">
+
+            <div class="input-container">
+
+                <label for="search">Search</label>
+                <input type="text" name="search" (input)="checkEmptySearchField(searchTerm.trim())" [(ngModel)]="searchTerm" (keyup.enter)="onSearch()" placeholder="Search bar...">
+
+            </div>
+
+            <button type="submit" class="search-button" (click)="onSearch()">
+                Search
+            </button>
+
+            <button routerLink="/admin/assignments/add" type="submit" class="add-button">
+                Add Assignment
+            </button>
+
+        </div>
+
+        <table>
+
+            <thead>
+                <tr> 
+                    <th>ENGINEER NAME</th>
+                    <th>SERVICE NAME</th>
+                    <th>CREATED DATE</th>
+                    <th>ACTION</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @for (a of assignments; track a.idServicesEngineer) {
+                    <tr>
+                        <td>{{ a.engineer.firstName }} {{ a.engineer.lastName }}</td>
+                        <td>{{ a.service.title }}</td>
+                        <td>{{ a.createDate }}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="action-btn delete" title="Delete" (click)="onDelete(a.idServicesEngineer)">
+                                    <span class="material-icons">delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                } @empty {
+                    <tr>
+                        <td colspan="3" style="text-align: center;" class="empty-message">No assignment found.</td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

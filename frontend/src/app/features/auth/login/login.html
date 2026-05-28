@@ -1,0 +1,42 @@
+<div class="login-container">
+    <div class="login-content">
+        <div class="header-texts">
+            <h1>Login.</h1>
+            <p>Please enter your credentials to enter the application.</p>
+        </div>
+        <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="input-container">
+                <label for="email">Login</label>
+                <input
+                    data-cy="email-input"
+                    type="email"
+                    formControlName="email"
+                    placeholder="Your login"
+                    required>
+            </div>
+            <div class="input-container">
+                <label for="password">Password</label>
+                <input
+                    data-cy="password-input"
+                    type="password"
+                    formControlName="password"
+                    placeholder="Your password"
+                    required>
+            </div>
+
+            <!-- Error message block — Cypress looks for this -->
+            <div data-cy="error-msg" class="error-message" *ngIf="errorMessage">
+                {{ errorMessage }}
+            </div>
+
+            <!-- Removed [disabled] so Cypress can click even when form is empty -->
+            <button type="submit" class="login-button">
+                Login
+            </button>
+        </form>
+    </div>
+    <div class="login-image">
+        <h1>HI AGAIN!</h1>
+        <img src="assets/icons/login-image.svg" alt="Login Image">
+    </div>
+</div>

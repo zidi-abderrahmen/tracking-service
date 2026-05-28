@@ -1,0 +1,36 @@
+<div class="add-user-container">
+    <h1>ADD ASSINGMENT</h1>
+    
+
+    <div class="main-content">
+        <form #userForm="ngForm" (ngSubmit)="onSave()">
+
+            <div class="form-container">
+
+                <div class="input-container">
+                    <label for="engineer">Engineer</label>
+                    <input type="text" list="engineerList" name="engineer" [(ngModel)]="engineerFirstName" (change)="onEngineerChange($event)" placeholder="Search engineer" required>
+                    <datalist id="engineerList">
+                        @for (e of engineers; track e.idUser) {
+                            <option [value]="e.lastName"></option>
+                        }
+                    </datalist>
+                </div>
+
+                <div class="input-container">
+                    <label for="service">Service</label>
+                    <input type="text" list="serviceList" name="service" [(ngModel)]="serviceTitle" (change)="onServiceChange($event)" placeholder="Search service" required>
+                    <datalist id="serviceList">
+                        @for (s of services; track s.idService) {
+                            <option [value]="s.title"></option>
+                        }
+                    </datalist>
+                </div>
+
+            </div>
+
+            <button type="submit" class="add-button" [disabled]="!userForm.form.valid">Add</button>
+
+        </form>
+    </div>
+</div>

@@ -1,0 +1,72 @@
+<div class="add-user-container">
+    @if (isViewMode) {
+        <h1>VIEW CLIENT</h1>
+    } @else if (isEditMode) {
+        <h1>EDIT CLIENT</h1>
+    } @else {
+        <h1>ADD CLIENT</h1>
+    }
+    
+
+    <div class="main-content">
+        <form #userForm="ngForm" (ngSubmit)="onSave()">
+
+            <div class="form-container">
+
+                <div class="input-container company-name">
+                    <label for="company-name">Company name</label>
+                    <input type="text" name="companyName" [(ngModel)]="client.companyName" placeholder="Company name" [disabled]="isViewMode" required>
+                </div>
+
+                <div class="input-container">
+                    <label for="trade-register">Trade register</label>
+                    <input type="text" name="tradeRegister" [(ngModel)]="client.tradeRegister" placeholder="Trade register" [disabled]="isViewMode" required>
+                </div>
+
+                <div class="input-container">
+                    <label for="daily-rate">Daily rate</label>
+                    <input type="number" name="dailyRate" [(ngModel)]="client.dailyRate" placeholder="Daily rate" [disabled]="isViewMode" required>
+                </div>
+
+                <div class="input-container">
+                    <label for="first-name">Responsible first name</label>
+                    <input type="text" name="firstName" [(ngModel)]="client.firstName" placeholder="Responsible first name" [disabled]="isViewMode" required>
+                </div>
+
+                <div class="input-container">
+                    <label for="last-name">Responsible last name</label>
+                    <input type="text" name="lastName" [(ngModel)]="client.lastName" placeholder="Responsible last name" [disabled]="isViewMode" required>
+                </div>
+
+                <div class="input-container">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" [(ngModel)]="client.email" placeholder="Email" [disabled]="isViewMode" required>
+                </div>
+
+                <div class="input-container">
+                    <label for="phone">Phone</label>
+                    <input type="text" name="phone" [(ngModel)]="client.phone" placeholder="Phone" [disabled]="isViewMode" required>
+                </div>
+
+                <div class="input-container address">
+                    <label for="address">Address</label>
+                    <textarea name="address" id="address" [(ngModel)]="client.address" placeholder="Address" [disabled]="isViewMode" required></textarea>
+                </div>
+
+            </div>
+
+            @if (isEditMode) {
+                <button type="submit" class="add-button" [disabled]="!userForm.form.valid">Save Changes</button>
+            } @else if (!isViewMode) {
+                <button type="submit" class="add-button" [disabled]="!userForm.form.valid">Add</button>
+            } @else {
+                <button 
+                    type="button" 
+                    class="add-button" (click)="goBack()">
+                    Back to List
+                </button>
+            }
+
+        </form>
+    </div>
+</div>

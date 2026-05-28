@@ -1,0 +1,41 @@
+<div class="add-user-container">
+    <h1>ADD TIMESHEET</h1>
+    
+
+    <div class="main-content">
+        <form #userForm="ngForm" (ngSubmit)="onSubmit()">
+
+            <div class="form-container">
+
+                <div class="input-container">
+                    <label for="client">Client</label>
+                    <input type="text" list="clientList" name="client" [(ngModel)]="clientName" (change)="onClientChange($event)" placeholder="Search client" required>
+                    <datalist id="clientList">
+                        @for (c of clients; track c.idClient) {
+                            <option [value]="c.companyName">{{ c.firstName }} {{ c.lastName }}</option>
+                        }
+                    </datalist>
+                </div>
+
+                <div class="input-container">
+                    <label for="service">Service</label>
+                    <input type="text" list="serviceList" name="service" [(ngModel)]="serviceTitle" (change)="onServiceChange($event)" placeholder="Search service" [disabled]="client.idClient == ''" required>
+                    <datalist id="serviceList">
+                        @for (s of services; track s.idService) {
+                            <option [value]="s.title"></option>
+                        }
+                    </datalist>
+                </div>
+
+                <div class="input-container hours">
+                    <label for="hours">Hours</label>
+                    <input type="number" name="hours" id="hours" [(ngModel)]="timesheet.hours" (change)="onHoursChange($event)" placeholder="Hours" min="0" required>
+                </div>
+
+            </div>
+
+            <button type="submit" class="add-button" [disabled]="!userForm.form.valid">Add</button>
+
+        </form>
+    </div>
+</div>

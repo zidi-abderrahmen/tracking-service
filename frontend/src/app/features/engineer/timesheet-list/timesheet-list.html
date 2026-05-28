@@ -1,0 +1,41 @@
+<div class="user-list-container">
+
+    <h1>TIMSHEET LIST</h1>
+
+    <div class="main-content">
+
+        <button routerLink="/engineer/timesheets/add" type="submit" class="add-button">
+                Add Timesheet
+            </button>
+
+        <table>
+
+            <thead>
+                <tr> 
+                    <th>SERVICE</th> 
+                    <th>CLIENT</th>
+                    <th>DATE</th>
+                    <th>HOURS</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @for (t of timesheets; track t.idTimesheet) {
+                    <tr>
+                        <td>{{ t.service.title }}</td>
+                        <td>{{ t.service.client.companyName }}</td>
+                        <td>{{ t.date }}</td>
+                        <td>{{ t.hours }}</td>
+                    </tr>
+                } @empty {
+                    <tr>
+                        <td colspan="4" style="text-align: center;" class="empty-message">No timesheets found.</td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

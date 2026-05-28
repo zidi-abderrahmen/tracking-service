@@ -1,0 +1,31 @@
+<button class="mobile-toggle" 
+        [class.is-active]="isMobileMenuOpen"
+        (click)="toggleMobileMenu()" 
+        aria-label="Toggle Menu">
+    <mat-icon [fontIcon]="isMobileMenuOpen ? 'close' : 'menu'"></mat-icon>
+</button>
+
+@if (isMobileMenuOpen) {
+    <div class="sidebar-overlay" (click)="closeMenu()"></div>
+}
+
+<div class="sidebar-container" [class.mobile-open]="isMobileMenuOpen">
+    <div class="sidebar-header" [routerLink]="dashboardLink" (click)="closeMenu()">
+        <img src="assets/logos/app-logo.svg" alt="App Logo">
+        <h3>Monitoring</h3>
+    </div>
+
+    <nav class="sidebar-links">
+        @for (link of filteredLinks; track link.path) {
+            <a [routerLink]="link.path" routerLinkActive="active" class="nav-link" (click)="closeMenu()">
+                <mat-icon [fontIcon]="link.icon"></mat-icon>
+                <span>{{ link.label }}</span>
+            </a>
+        }
+    </nav>
+
+    <button class="logout-button" (click)="onLogout()">
+        <span>Logout</span>
+        <mat-icon fontIcon="exit_to_app"></mat-icon>
+    </button>
+</div>
